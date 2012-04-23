@@ -1,4 +1,5 @@
 require 'yajl'
+require 'socket'
 
 module Fnord
   class Client

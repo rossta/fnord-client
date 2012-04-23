@@ -2,6 +2,8 @@
 
 Send events to an [FnordMetric](https://github.com/paulasmuth/fnordmetric) server via UDP (or TCP).
 
+[![Build Status](https://secure.travis-ci.org/rossta/fnord-client.png?branch=master)](http://travis-ci.org/rossta/fnord-client)
+
 ## Installation
 
 Add this line to your application's Gemfile:

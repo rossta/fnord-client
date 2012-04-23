@@ -18,7 +18,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# Connect to FnordMetric inbound stream over UDP (default)
+$fnord = Fnord::Client('localhost', 1337)
+
+# Connect to FnordMetric inbound stream over TCP
+$fnord = Fnord::Client('localhost', 1337, :protocol => :tcp)
+
+# send JSON-encoded event
+$fnord.event("message_received", { :user_id => 123 })
+# "{\"_type\":\"message_received\",\"user_id\":\"123\"}"
+
+# configure FnordMetric namespace
+Fnord::Client.namespace = "staging"
+$fnord.event("message_received")
+# "{\"_type\":\"message_received\",\"_namespace\":\"staging\"}"
+```
 
 ## Contributing
 

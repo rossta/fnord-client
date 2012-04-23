@@ -22,8 +22,7 @@ module Fnord
       event_name = args.shift
       message[:_type] = event_name if event_name
       message[:_namespace] = self.class.namespace unless message[:_namespace]
-      message = stringify_values(message)
-      send_to_connection(to_json(message))
+      send_to_connection(to_json(stringify_values(message)))
     end
 
     def connection

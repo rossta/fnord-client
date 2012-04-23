@@ -32,4 +32,15 @@ describe Fnord::Client do
       client.event("logged_in", data)
     end
   end
+
+  describe "connection" do
+    it "connects uses UDP strategy by default" do 
+      client.connection.should be_kind_of(Fnord::UDPConnection)
+    end
+
+    it "connects set TCP strategy via option" do 
+      client = Fnord::Client.new('localhost', 1337, :protocol => :tcp)
+      client.connection.should be_kind_of(Fnord::TCPConnection)
+    end
+  end
 end

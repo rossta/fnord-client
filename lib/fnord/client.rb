@@ -25,17 +25,30 @@ module Fnord
       send_to_connection(to_json(message))
     end
 
+    def connection
+      @connection ||= connection_class.new(@host, @port, @options)
+    end
+
     private
+
+    def protocol
+      @protocol ||= @options.delete(:protocol) || :udp
+    end
+
+    def connection_class
+      case protocol
+      when :tcp
+        TCPConnection
+      else
+        UDPConnection
+      end
+    end
 
     def send_to_connection(message)
       self.class.logger.debug {"Fnord: #{message}"} if self.class.logger
       connection.send_data(message)
     rescue => boom
       self.class.logger.error {"Fnord: #{boom.class} #{boom}"} if self.class.logger
-    end
-
-    def connection
-      @connection ||= UDPConnection.new(@host, @port, @options)
     end
 
     def stringify_values(message)

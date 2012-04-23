@@ -1,6 +1,6 @@
 # Fnord::Client
 
-Send events to an Fnord server via UDP (or TCP).
+Send events to an [FnordMetric](https://github.com/paulasmuth/fnordmetric) server via UDP (or TCP).
 
 ## Installation
 

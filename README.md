@@ -28,13 +28,20 @@ $fnord = Fnord::Client('localhost', 1337)
 $fnord = Fnord::Client('localhost', 1337, :protocol => :tcp)
 
 # send JSON-encoded event
-$fnord.event("message_received", { :user_id => 123 })
+$fnord.event("message_received", :user_id => 123)
 # "{\"_type\":\"message_received\",\"user_id\":\"123\"}"
 
-# configure FnordMetric namespace
+# set a default namespace
 Fnord::Client.namespace = "staging"
 $fnord.event("message_received")
 # "{\"_type\":\"message_received\",\"_namespace\":\"staging\"}"
+
+# on the server-side, configure FnordMetric to listen over UDP
+FnordMetric.server_configuration = {
+  :inbound_protocol => :udp,
+  :inbound_stream => ['0.0.0.0', '1337']
+  # other options omitted
+}
 ```
 
 ## Contributing

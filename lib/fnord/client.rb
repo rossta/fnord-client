@@ -7,7 +7,6 @@ module Fnord
 
     class << self
       # Set to any standard logger instance (including stdlib's Logger) to enable
-      # stat logging using logger.debug
       attr_accessor :logger, :namespace
     end
 
@@ -17,6 +16,23 @@ module Fnord
       @host, @port, @options = host, port, options
     end
 
+    # Public: Send event to FnordMetric server as json
+    #
+    # text    - event name
+    # options - additional data for payload
+    #
+    # Examples
+    #
+    #   event('page_view')
+    #   # => emits "{\"_type\":\"page_view\",\"_namespace\":\"staging\"}"
+    #
+    #   event('page_view', :user_id => 1)
+    #   # => emits "{\"_type\":\"page_view\",\"user_id\":\"1\"}"
+    #
+    #   event(:_type => 'page_view', :user_id => 1)
+    #   # => emits "{\"_type\":\"page_view\",\"user_id\":\"1\"}"
+    #
+    # Emits given event name and options as json.
     def event(*args)
       message = extract_options!(args)
       event_name = args.shift
